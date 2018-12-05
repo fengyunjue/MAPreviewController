@@ -27,3 +27,4 @@ ma772528138@qq.com, ma772528138@qq.com
 ## License
 
 MAPreviewController is available under the MIT license. See the LICENSE file for more info.
+# MAPreviewController

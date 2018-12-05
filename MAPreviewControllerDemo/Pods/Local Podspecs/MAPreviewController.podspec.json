@@ -1,0 +1,42 @@
+{
+  "name": "MAPreviewController",
+  "version": "0.1.0",
+  "summary": "A short description of MAPreviewController.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/ma772528138@qq.com/MAPreviewController",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "ma772528138@qq.com": "ma772528138@qq.com"
+  },
+  "source": {
+    "git": "https://github.com/ma772528138@qq.com/MAPreviewController.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "source_files": "MAPreviewController/Classes/**/*",
+  "resource_bundles": {
+    "MAPreviewController": [
+      "MAPreviewController/Assets/*.png"
+    ]
+  },
+  "public_header_files": "MAPreviewController/Classes/**/*.h",
+  "dependencies": {
+    "MAAutoLayout": [
+
+    ],
+    "SDWebImage": [
+
+    ],
+    "SVProgressHUD": [
+
+    ],
+    "TZImagePickerController": [
+
+    ]
+  }
+}

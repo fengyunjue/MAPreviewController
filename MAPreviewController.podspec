@@ -29,6 +29,7 @@ TODO: Add long description of the pod here.
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '9.0'
+  s.static_framework = true
 
   s.source_files = 'MAPreviewController/Classes/**/*'
   
@@ -36,7 +37,7 @@ TODO: Add long description of the pod here.
     'MAPreviewController' => ['MAPreviewController/Assets/*.png']
  }
   s.public_header_files = 'MAPreviewController/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
+  s.frameworks = 'UIKit', 'MapKit'
     s.dependency 'MAAutoLayout'
     s.dependency 'SDWebImage'
     s.dependency 'SVProgressHUD'

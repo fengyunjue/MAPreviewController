@@ -6,10 +6,10 @@
 //
 
 #import "MAPlayerController.h"
-#import <MAAutoLayout.h>
+#import "MAAutoLayout.h"
 #import "MAPreviewController.h"
 #import <CommonCrypto/CommonDigest.h>
-#import <SVProgressHUD.h>
+#import "SVProgressHUD.h"
 #import <Photos/Photos.h>
 
 @interface MAPlayerController ()<NSURLSessionDelegate>

@@ -7,11 +7,10 @@
 //
 
 #import "MAPreviewController.h"
-#import <UIImageView+WebCache.h>
-#import <MAAutoLayout.h>
-#import <SVProgressHUD.h>
+#import "UIImageView+WebCache.h"
+#import "MAAutoLayout.h"
+#import "SVProgressHUD.h"
 #import "MAPlayer.h"
-#import <TZImagePickerController/TZImagePickerController.h>
 #import <CommonCrypto/CommonDigest.h>
 #import "MAPlayerController.h"
 

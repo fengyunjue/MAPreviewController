@@ -7,7 +7,7 @@
 //
 
 #import "MAPlayer.h"
-#import <MAAutoLayout.h>
+#import "MAAutoLayout.h"
 
 @interface MAPlayer ()<UIGestureRecognizerDelegate,MAControlViewDelegate>
 

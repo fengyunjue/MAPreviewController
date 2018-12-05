@@ -4,12 +4,10 @@ PODS:
     - MAAutoLayout
     - SDWebImage
     - SVProgressHUD
-    - TZImagePickerController
   - SDWebImage (4.4.2):
     - SDWebImage/Core (= 4.4.2)
   - SDWebImage/Core (4.4.2)
   - SVProgressHUD (2.2.5)
-  - TZImagePickerController (3.1.5)
 
 DEPENDENCIES:
   - MAPreviewController (from `../`)
@@ -19,7 +17,6 @@ SPEC REPOS:
     - MAAutoLayout
     - SDWebImage
     - SVProgressHUD
-    - TZImagePickerController
 
 EXTERNAL SOURCES:
   MAPreviewController:
@@ -27,10 +24,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   MAAutoLayout: 2ac0f7a985d11a919d471957aca8cf78f8556d39
-  MAPreviewController: 7f57d555e000ff1f82eee2012e0d20abb9e1bc14
+  MAPreviewController: 6367bc3070ad4873a8e1bf7b7650892cc111d776
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
-  TZImagePickerController: 6cc6e9c1a73bb8e62cfef98fd40af2d90634dcf5
 
 PODFILE CHECKSUM: 545fcef2ac36fc1913ec21dd0552b9e59b6e7f9d
 

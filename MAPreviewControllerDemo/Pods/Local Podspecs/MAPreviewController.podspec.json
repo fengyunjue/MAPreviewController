@@ -3,16 +3,16 @@
   "version": "0.1.0",
   "summary": "A short description of MAPreviewController.",
   "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/ma772528138@qq.com/MAPreviewController",
+  "homepage": "https://github.com/fengyunjue/MAPreviewController",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
   },
   "authors": {
-    "ma772528138@qq.com": "ma772528138@qq.com"
+    "fengyunjue": "ma772528138@qq.com"
   },
   "source": {
-    "git": "https://github.com/ma772528138@qq.com/MAPreviewController.git",
+    "git": "https://github.com/fengyunjue/MAPreviewController.git",
     "tag": "0.1.0"
   },
   "platforms": {
@@ -33,9 +33,6 @@
 
     ],
     "SVProgressHUD": [
-
-    ],
-    "TZImagePickerController": [
 
     ]
   }

@@ -116,7 +116,7 @@
         make.left.equalTo(self.view.ma_safeAreaLayoutGuideLeft).offset(30);
     }];
     
-    if (self.model == nil || ![self.model.value isKindOfClass:[NSURL class]]) {
+    if (self.model != nil || [self.model.value isKindOfClass:[NSURL class]]) {
         [self assetWithModel:self.model];
         [self.playView resetPlay];
     }

@@ -1,5 +1,5 @@
 #use_frameworks!
-platform :ios, '9.0'
+platform :ios, '8.0'
 target 'MAPreviewControllerDemo' do
   pod 'MAPreviewController', :path => '../'
   #pod 'MAPreviewController', :git => 'https://github.com/fengyunjue/MAPreviewController.git'

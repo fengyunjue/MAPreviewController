@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'MAPreviewController'
-  s.version          = '0.1.1'
+  s.version          = '0.1.2'
   s.summary          = 'A short description of MAPreviewController.'
 
 # This description is used to generate tags and improve search results.
@@ -37,7 +37,7 @@ TODO: Add long description of the pod here.
     'MAPreviewController' => ['MAPreviewController/Assets/*.png']
  }
   s.public_header_files = 'MAPreviewController/Classes/**/*.h'
-  s.frameworks = 'UIKit', 'MapKit'
+  s.frameworks = 'UIKit', 'MapKit', 'AVFoundation'
     s.dependency 'MAAutoLayout'
     s.dependency 'SDWebImage'
     s.dependency 'SVProgressHUD'

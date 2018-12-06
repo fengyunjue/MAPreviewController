@@ -123,6 +123,7 @@
 }
 
 - (void)assetWithModel:(MAPreviewModel *)model {
+    self.model = model;
     if (model == nil || ![model.value isKindOfClass:[NSURL class]]) {
         return;
     }

@@ -265,64 +265,64 @@ static char kInstalledMAAutoLayoutKey;
 }
 
 - (MAViewAttribute *)ma_left{
-    return [self viewAttribute:NSLayoutAttributeLeft];
+    return [self ma_viewAttribute:NSLayoutAttributeLeft];
 }
 
 - (MAViewAttribute *)ma_top{
-    return [self viewAttribute:NSLayoutAttributeTop];
+    return [self ma_viewAttribute:NSLayoutAttributeTop];
 }
 
 - (MAViewAttribute *)ma_right{
-    return [self viewAttribute:NSLayoutAttributeRight];
+    return [self ma_viewAttribute:NSLayoutAttributeRight];
 }
 
 - (MAViewAttribute *)ma_bottom{
-    return [self viewAttribute:NSLayoutAttributeBottom];
+    return [self ma_viewAttribute:NSLayoutAttributeBottom];
 }
 
 - (MAViewAttribute *)ma_leading{
-    return [self viewAttribute:NSLayoutAttributeLeading];
+    return [self ma_viewAttribute:NSLayoutAttributeLeading];
 }
 
 - (MAViewAttribute *)ma_trailing{
-    return [self viewAttribute:NSLayoutAttributeTrailing];
+    return [self ma_viewAttribute:NSLayoutAttributeTrailing];
 }
 
 - (MAViewAttribute *)ma_width{
-    return [self viewAttribute:NSLayoutAttributeWidth];
+    return [self ma_viewAttribute:NSLayoutAttributeWidth];
 }
 
 - (MAViewAttribute *)ma_height{
-    return [self viewAttribute:NSLayoutAttributeHeight];
+    return [self ma_viewAttribute:NSLayoutAttributeHeight];
 }
 
 - (MAViewAttribute *)ma_centerX{
-    return [self viewAttribute:NSLayoutAttributeCenterX];
+    return [self ma_viewAttribute:NSLayoutAttributeCenterX];
 }
 
 - (MAViewAttribute *)ma_centerY{
-    return [self viewAttribute:NSLayoutAttributeCenterY];
+    return [self ma_viewAttribute:NSLayoutAttributeCenterY];
 }
 
 - (MAViewAttribute *)ma_baseline{
-    return [self viewAttribute:NSLayoutAttributeBaseline];
+    return [self ma_viewAttribute:NSLayoutAttributeBaseline];
 }
 
 #pragma mark - iOS11 safeArea
 - (MAViewAttribute *)ma_safeAreaLayoutGuideTop{
-    return [self safeAreaViewAttribute:NSLayoutAttributeTop];
+    return [self ma_safeAreaViewAttribute:NSLayoutAttributeTop];
 }
 
 - (MAViewAttribute *)ma_safeAreaLayoutGuideBottom{
-    return [self safeAreaViewAttribute:NSLayoutAttributeBottom];
+    return [self ma_safeAreaViewAttribute:NSLayoutAttributeBottom];
 }
 
 - (MAViewAttribute *)ma_safeAreaLayoutGuideLeft{
-    return [self safeAreaViewAttribute:NSLayoutAttributeLeft];
+    return [self ma_safeAreaViewAttribute:NSLayoutAttributeLeft];
 }
 
 - (MAViewAttribute *)ma_safeAreaLayoutGuideRight{
-    return [self safeAreaViewAttribute:NSLayoutAttributeRight];
+    return [self ma_safeAreaViewAttribute:NSLayoutAttributeRight];
 }
 
 - (UIEdgeInsets)ma_safeAreaInsets{
@@ -336,11 +336,11 @@ static char kInstalledMAAutoLayoutKey;
 }
 
 #pragma mark - private
-- (MAViewAttribute *)viewAttribute:(NSLayoutAttribute)layoutAttribute {
+- (MAViewAttribute *)ma_viewAttribute:(NSLayoutAttribute)layoutAttribute {
     return [[MAViewAttribute alloc] initWithItem:self layoutAttribute:layoutAttribute];
 }
 
-- (MAViewAttribute *)safeAreaViewAttribute:(NSLayoutAttribute)layoutAttribute {
+- (MAViewAttribute *)ma_safeAreaViewAttribute:(NSLayoutAttribute)layoutAttribute {
     id item = self;
 #ifdef __IPHONE_11_0
     if (@available(iOS 11.0, *)) {

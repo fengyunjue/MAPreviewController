@@ -8,12 +8,6 @@
 #import <UIKit/UIKit.h>
 #import "MAPlayer.h"
 
-typedef NS_ENUM(NSInteger,kLargeType) {
-    kLargeTypeHidden = 0,// 隐藏全屏按钮
-    kLargeTypeView,         // view旋转
-    kLargeTypeSystem     // app支持旋转
-};
-
 @class MAPreviewModel;
 
 @interface MAPlayerController : UIViewController
@@ -22,9 +16,8 @@ typedef NS_ENUM(NSInteger,kLargeType) {
 @property (nonatomic, weak) MAPlayer *playView;
 @property (nonatomic, copy) void (^singleTapGestureBlock)(void);
 @property (nonatomic, copy) void (^longTapGestureBlock)(MAPreviewModel *model);
-
-// 全屏按钮状态
-@property (nonatomic, assign) kLargeType  largeType;
+// 全屏按钮
+@property (nonatomic, copy) void (^largeTapBlock)(void);
 
 - (void)assetWithModel:(MAPreviewModel *)model;
 

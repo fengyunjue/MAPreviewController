@@ -19,8 +19,6 @@
 @property (nonatomic, weak) UIButton *closeBtn;
 @property (nonatomic, strong) NSURL *localURL;
 
-@property (nonatomic, weak) UIView *contentView;
-
 @end
 
 @implementation MAPlayerController
@@ -38,54 +36,42 @@
     return YES;
 }
 
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations{
-    if (self.largeType == kLargeTypeView) {
-        return UIInterfaceOrientationMaskPortrait;
-    }else{
-        return [super supportedInterfaceOrientations];
-    }
-}
-- (BOOL)shouldAutorotate{
-    if (self.largeType == kLargeTypeView) {
-        return NO;
-    }else{
-        return [super shouldAutorotate];
-    }
-}
-
-- (void)deviceOrientationDidChange{
-    CGSize size = CGSizeZero;
-    CGFloat angle = 0;
-    if (self.contentView.bounds.size.width > self.contentView.bounds.size.height) {
-        size = self.view.frame.size;
-        angle = 0;
-    }else{
-        size =CGSizeMake(self.view.frame.size.height, self.view.frame.size.width);
-        angle = M_PI_2;
-    }
-    [UIView animateWithDuration:0.2f animations:^{
-        self.contentView.transform = CGAffineTransformMakeRotation(angle);
-        self.contentView.bounds = CGRectMake(0, 0, size.width, size.height);
-    }];
-}
+//- (UIInterfaceOrientationMask)supportedInterfaceOrientations{
+//    return UIInterfaceOrientationMaskPortrait;
+//}
+//- (BOOL)shouldAutorotate{
+//    return NO;
+//}
+//
+//- (void)deviceOrientationDidChange{
+//    CGSize size = CGSizeZero;
+//    CGFloat angle = 0;
+//    if (self.view.bounds.size.width > self.view.bounds.size.height) {
+//        size = self.view.frame.size;
+//        angle = 0;
+//    }else{
+//        size =CGSizeMake(self.view.frame.size.height, self.view.frame.size.width);
+//        angle = M_PI_2;
+//    }
+//    [UIView animateWithDuration:0.2f animations:^{
+//        self.view.transform = CGAffineTransformMakeRotation(angle);
+//        self.view.bounds = CGRectMake(0, 0, size.width, size.height);
+//    }];
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
     
-    UIView *contentView = [[UIView alloc] initWithFrame:self.view.bounds];
-    [self.view addSubview:contentView];
-    self.contentView = contentView;
-    
-    
     UIImageView *imageView = [[UIImageView alloc] init];
     imageView.backgroundColor = [UIColor colorWithWhite:1.000 alpha:0.500];
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     imageView.clipsToBounds = YES;
-    [contentView addSubview:imageView];
+    [self.view addSubview:imageView];
     self.imageView = imageView;
     
     MAPlayer *playView = [[MAPlayer alloc] init];
+    playView.controlView.largeButton = nil;
     __weak typeof(self) weakSelf = self;
     playView.statusChange = ^(MAPlayerStatus status) {
         if (status == MAPlayerStatusReadyToPlay) {
@@ -101,17 +87,12 @@
             [weakSelf saveVideo:weakSelf.model];
         }
     };
-    if (self.largeType == kLargeTypeHidden) {
-        [playView.controlView.largeButton removeFromSuperview];
-    }else if (self.largeType == kLargeTypeView){
-        playView.largeTapBlock = ^{
-            [weakSelf deviceOrientationDidChange];
-        };
-    }else{
-        playView.largeTapBlock = nil;
-    }
-
-    [contentView addSubview:playView];
+    playView.largeTapBlock = ^{
+        if (weakSelf.largeTapBlock) {
+            weakSelf.largeTapBlock();
+        }
+    };
+    [self.view addSubview:playView];
     self.playView = playView;
     
     UIButton *closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -119,30 +100,29 @@
     [closeBtn setTitle:@"关闭" forState:UIControlStateNormal];
     closeBtn.layer.cornerRadius = 5;
     closeBtn.backgroundColor = [[UIColor alloc] initWithWhite:0.5 alpha:0.5];
-    [contentView addSubview:closeBtn];
+    [self.view addSubview:closeBtn];
     self.closeBtn = closeBtn;
     
     [self.playView ma_makeConstraints:^(MAAutoLayout * _Nonnull make) {
-        make.left.equalTo(self.contentView);
-        make.right.equalTo(self.contentView);
-        make.top.equalTo(self.contentView);
-        make.bottom.equalTo(self.contentView);
+        make.left.equalTo(self.view);
+        make.right.equalTo(self.view);
+        make.top.equalTo(self.view);
+        make.bottom.equalTo(self.view);
     }];
     
     [closeBtn ma_makeConstraints:^(MAAutoLayout * _Nonnull make) {
-        make.top.equalTo(self.contentView.ma_safeAreaLayoutGuideTop).offset(20);
+        make.top.equalTo(self.view.ma_safeAreaLayoutGuideTop).offset(15);
         make.width.ma_equal(50);
-        make.left.equalTo(self.contentView.ma_safeAreaLayoutGuideLeft).offset(20);
+        make.left.equalTo(self.view.ma_safeAreaLayoutGuideLeft).offset(30);
     }];
     
-    if (self.model != nil || [self.model.value isKindOfClass:[NSURL class]]) {
+    if (self.model == nil || ![self.model.value isKindOfClass:[NSURL class]]) {
         [self assetWithModel:self.model];
         [self.playView resetPlay];
     }
 }
 
 - (void)assetWithModel:(MAPreviewModel *)model {
-    self.model = model;
     if (model == nil || ![model.value isKindOfClass:[NSURL class]]) {
         return;
     }
@@ -150,9 +130,9 @@
         self.imageView.hidden = NO;
         self.imageView.image = model.placeholder;
         [self.imageView ma_makeConstraints:^(MAAutoLayout * _Nonnull make) {
-            make.centerX.equalTo(self.contentView);
-            make.centerY.equalTo(self.contentView);
-            make.width.equalTo(self.contentView);
+            make.centerX.equalTo(self.view);
+            make.centerY.equalTo(self.view);
+            make.width.equalTo(self.view);
             make.height.equalTo(self.imageView.ma_width).multiplier(self.imageView.image.size.height / self.imageView.image.size.width);
         }];
     }

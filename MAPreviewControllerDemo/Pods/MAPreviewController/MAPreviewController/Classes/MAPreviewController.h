@@ -7,17 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MAPlayerController.h"
 @class MAPreviewModel, MAPreviewView;
+
 
 @interface MAPreviewController : UIViewController
 
 - (instancetype)initWithModels:(NSArray<MAPreviewModel *> *)models selectIndex:(NSInteger)selectIndex;
 + (void)presentForViewController:(UIViewController *)vc models:(NSArray <MAPreviewModel *>*)models selectIndex:(NSInteger)selectIndex;
 + (void)setPlaceholderErrorImage:(UIImage *)image;
-
-// 视频是否支持全屏按钮
-+ (void)setLargeType:(kLargeType)largeType;
 
 @end
 

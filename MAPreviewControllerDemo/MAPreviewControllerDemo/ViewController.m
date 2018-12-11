@@ -16,6 +16,8 @@
 @property (nonatomic, strong) NSURL *url;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
+@property (nonatomic, weak) UIView *bgView;
+
 @end
 
 @implementation ViewController
@@ -25,34 +27,47 @@
     [super viewDidLoad];
     self.url = [NSURL fileURLWithPath:[[NSBundle mainBundle]pathForResource:@"123.mp4" ofType:nil]];
     
-//    UIScrollView *view = [UIScrollView new];
+//    UIView *view = [[UIView alloc] init];
 //    view.backgroundColor = [UIColor redColor];
-//    [self.view insertSubview:view atIndex:0];
+//    view.layer.borderWidth = 2;
+//    [self.view addSubview:view];
+//    self.bgView = view;
 //
-//    view.contentSize = CGSizeMake(1000, 1000);
-//
-//    UIView *view1 = [UIView new];
-//    view1.backgroundColor = [UIColor greenColor];
-//    [view addSubview:view1];
+//    UILabel *label = [[UILabel alloc] init];
+//    label.text = @"无量天尊";
+//    [view addSubview:label];
 //
 //    [view ma_makeConstraints:^(MAAutoLayout * _Nonnull make) {
-//        make.left.equalTo(self.view).offset(-10);
-//        make.right.equalTo(self.view).offset(10);
-//        make.top.equalTo(self.view).offset(-10);
-//        make.bottom.equalTo(self.view).offset(10);
+//        make.top.equalTo(self.view).offset(10);
+//        make.left.equalTo(self.view).offset(10);
+//        make.right.equalTo(self.view).offset(-10);
+//        make.bottom.equalTo(self.view).offset(-10);
+////        make.width.equalTo(self.view).offset(-20);
+////        make.height.equalTo(self.view).offset(-20);
+////        make.centerY.equalTo(self.view);
+////        make.centerX.equalTo(self.view);
 //    }];
-//    [view1 ma_makeConstraints:^(MAAutoLayout * _Nonnull make) {
-//        make.left.equalTo(view.ma_safeAreaLayoutGuideLeft);
-////        make.right.equalTo(view.ma_safeAreaLayoutGuideRight);
-//        make.width.ma_equal(40);
-//        make.height.ma_equal(80);
-//        make.top.equalTo(view.ma_safeAreaLayoutGuideTop);
-////        make.bottom.equalTo(view.ma_safeAreaLayoutGuideBottom);
+//
+//    [label ma_makeConstraints:^(MAAutoLayout * _Nonnull make) {
+//        make.centerX.equalTo(view);
+//        make.centerY.equalTo(view);
 //    }];
+//
+    
+
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+//    self.bgView.transform = CGAffineTransformMakeRotation(M_PI_2);
+//    [self.bgView ma_makeConstraints:^(MAAutoLayout * _Nonnull make) {
+//        make.top.equalTo(self.view.ma_left).offset(10);
+//        make.left.equalTo(self.view.ma_right).offset(10);
+//        make.right.equalTo(self.view.ma_bottom).offset(-10);
+//        make.bottom.equalTo(self.view.ma_right).offset(-10);
+//    }];
+
     MAPlayerController *vc = [[MAPlayerController alloc]init];
+    vc.largeType = kLargeTypeView;
     vc.model = [[MAPreviewModel alloc] initWithValue:[NSURL URLWithString:@"https://kchat-files-oss.kf5.com/5bfe5062c41a73374c150c8093e8a5b1caff9432090198098.mp4"] placeholder:self.imageView.image isVideo:YES];
     [self presentViewController:vc animated:YES completion:nil];
 }

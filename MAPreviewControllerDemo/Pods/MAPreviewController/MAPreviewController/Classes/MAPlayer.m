@@ -63,8 +63,8 @@ static NSInteger count = 0;
     return self;
 }
 
--(instancetype)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
+-(instancetype)init {
+    self = [super init];
     if (self) {
         [self setupPlayerUI];
     }
@@ -512,11 +512,11 @@ static NSInteger padding = 8;
         [self.totalTimeLabel ma_makeConstraints:^(MAAutoLayout *make) {
             make.left.equalTo(self.slider.ma_right).offset(padding).priority(UILayoutPriorityDefaultHigh);
             make.centerY.equalTo(self.slider);
-            make.right.greaterThanOrEqualTo(self.ma_right).offset(-padding).priority(UILayoutPriorityDefaultLow);
+            make.right.greaterThanOrEqualTo(self.ma_right).offset(-padding);
         }];
         [self.largeButton ma_makeConstraints:^(MAAutoLayout *make) {
             make.left.equalTo(self.totalTimeLabel.ma_right).offset(padding).priority(UILayoutPriorityDefaultHigh);
-            make.right.equalTo(self.ma_right).offset(-padding);
+            make.right.equalTo(self.ma_right).offset(-padding);;
             make.centerY.equalTo(self.totalTimeLabel);
         }];
         [self.bufferSlier ma_makeConstraints:^(MAAutoLayout *make) {

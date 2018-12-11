@@ -28,8 +28,6 @@ static NSString *cellVideoID = @"MAPreviewVideoCell";
 
 @end
 
-static kLargeType LargeType = kLargeTypeHidden;
-
 @interface MACollectionView : UICollectionView
 @end
 
@@ -67,9 +65,7 @@ static kLargeType LargeType = kLargeTypeHidden;
 @end
 
 @implementation MAPreviewController
-+ (void)setLargeType:(kLargeType)largeType{
-    LargeType = largeType;
-}
+
 - (instancetype)initWithModels:(NSArray<MAPreviewModel *> *)models selectIndex:(NSInteger)selectIndex{
     self = [super init];
     if (self) {
@@ -257,7 +253,6 @@ static kLargeType LargeType = kLargeTypeHidden;
         self.backgroundColor = [UIColor blackColor];
         
         MAPlayerController *playerController = [[MAPlayerController alloc] init];
-        playerController.largeType = LargeType;
         [self.contentView addSubview:playerController.view];
         
         __weak typeof(self) weakSelf = self;

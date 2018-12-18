@@ -1,20 +1,20 @@
 //
-//  MAView.m
+//  MAPlayerView.m
 //  MAPlayer
 //
 //  Created by fengyunjue on 2017/4/10.
 //  Copyright © 2017年 fengyunjue. All rights reserved.
 //
 
-#import "MAPlayer.h"
+#import "MAPlayerView.h"
 #import "MAAutoLayout.h"
 #import "MAPreviewController.h"
 
-@interface MAPlayer ()<UIGestureRecognizerDelegate,MAControlViewDelegate>
+@interface MAPlayerView ()<UIGestureRecognizerDelegate,MAControlViewDelegate>
 
 @end
 static NSInteger count = 0;
-@implementation MAPlayer
+@implementation MAPlayerView
 +(Class)layerClass{
     return [AVPlayerLayer class];
 }

@@ -28,7 +28,7 @@ typedef NS_ENUM(NSInteger,MAPlayerStatus){
 @class MAControlView;
 @class MAPauseOrPlayView;
 
-@interface MAPlayer : UIView{
+@interface MAPlayerView : UIView{
     id playbackTimerObserver;
 }
 

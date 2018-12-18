@@ -85,7 +85,7 @@
     [contentView addSubview:imageView];
     self.imageView = imageView;
     
-    MAPlayer *playView = [[MAPlayer alloc] init];
+    MAPlayerView *playView = [[MAPlayerView alloc] init];
     __weak typeof(self) weakSelf = self;
     playView.statusChange = ^(MAPlayerStatus status) {
         if (status == MAPlayerStatusReadyToPlay) {

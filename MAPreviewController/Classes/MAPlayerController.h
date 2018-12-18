@@ -6,7 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MAPlayer.h"
+#import "MAPlayerView.h"
 
 typedef NS_ENUM(NSInteger,kLargeType) {
     kLargeTypeHidden = 0,// 隐藏全屏按钮
@@ -19,7 +19,7 @@ typedef NS_ENUM(NSInteger,kLargeType) {
 @interface MAPlayerController : UIViewController
 
 @property (nonatomic, strong) MAPreviewModel *model;
-@property (nonatomic, weak) MAPlayer *playView;
+@property (nonatomic, weak) MAPlayerView *playView;
 @property (nonatomic, copy) void (^singleTapGestureBlock)(void);
 @property (nonatomic, copy) void (^longTapGestureBlock)(MAPreviewModel *model);
 

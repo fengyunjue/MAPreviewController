@@ -10,7 +10,7 @@
 #import "UIImageView+WebCache.h"
 #import "MAAutoLayout.h"
 #import "SVProgressHUD.h"
-#import "MAPlayer.h"
+#import "MAPlayerView.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "MAPlayerController.h"
 
@@ -19,7 +19,7 @@ static NSString *cellID = @"MAPreviewPhotoCell";
 static NSString *cellVideoID = @"MAPreviewVideoCell";
 
 @interface MAPreviewVideoCell()
-@property (nonatomic, weak) MAPlayer *playView;
+@property (nonatomic, weak) MAPlayerView *playView;
 @end
 
 @interface MAPreviewModel()
@@ -258,7 +258,7 @@ static kLargeType LargeType = kLargeTypeHidden;
 
 @implementation MAPreviewVideoCell
 
-- (MAPlayer *)playView{
+- (MAPlayerView *)playView{
     return self.playerController.playView;
 }
 

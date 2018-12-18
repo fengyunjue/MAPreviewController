@@ -19,6 +19,8 @@
 // 视频是否支持全屏按钮
 + (void)setLargeType:(kLargeType)largeType;
 
++ (UIImage *)imageNamed:(NSString *)name;
+
 @end
 
 @interface MAPreviewPhotoCell : UICollectionViewCell

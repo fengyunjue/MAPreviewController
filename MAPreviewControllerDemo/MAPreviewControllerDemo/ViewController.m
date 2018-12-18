@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "MAPreviewController.h"
 #import <AVFoundation/AVFoundation.h>
-#import <MAAutoLayout.h>
+#import "MAAutoLayout.h"
 #import "MAPlayerController.h"
 
 @interface ViewController ()

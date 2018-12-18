@@ -102,7 +102,7 @@ static kLargeType LargeType = kLargeTypeHidden;
 - (void)viewDidLoad{
     [super viewDidLoad];
     
-    if (!placeHolderErrorImage) placeHolderErrorImage = [UIImage imageNamed:@"placeholder_image"];
+    if (!placeHolderErrorImage) placeHolderErrorImage = [MAPreviewController imageNamed:@"placeholder_image"];
     
     if (self.models.count == 0) return;
     
@@ -233,6 +233,17 @@ static kLargeType LargeType = kLargeTypeHidden;
 }
 + (void)setPlaceholderErrorImage:(UIImage *)image{
     placeHolderErrorImage = image;
+}
+
++ (UIImage *)imageNamed:(NSString *)name {
+    UIImage *image = [UIImage imageNamed:[@"MAPreviewController.bundle" stringByAppendingPathComponent:name]];
+    if (!image) {
+        image = [UIImage imageNamed:[@"Frameworks/MAPreviewController.framework/MAPreviewController.bundle" stringByAppendingPathComponent:name]];
+    }
+    if (!image) {
+        image = [UIImage imageNamed:name];
+    }
+    return image;
 }
 
 @end

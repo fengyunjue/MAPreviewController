@@ -1,6 +1,6 @@
 PODS:
   - MAAutoLayout (1.1)
-  - MAPreviewController (0.1.1):
+  - MAPreviewController (0.2.0):
     - MAAutoLayout
     - SDWebImage
     - SVProgressHUD
@@ -24,7 +24,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   MAAutoLayout: 64c174132f5c8e83b95b6dd38cd081c1af7af8df
-  MAPreviewController: cfe3b5dbb35e4c3a93d5683706f3c5789fae2bfb
+  MAPreviewController: 2a836cb8e7f874f838da7fe54e772b4a353af70a
   SDWebImage: c5594f1a19c48d526d321e548902b56b479cd508
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 

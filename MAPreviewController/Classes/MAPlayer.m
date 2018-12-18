@@ -8,6 +8,7 @@
 
 #import "MAPlayer.h"
 #import "MAAutoLayout.h"
+#import "MAPreviewController.h"
 
 @interface MAPlayer ()<UIGestureRecognizerDelegate,MAControlViewDelegate>
 
@@ -239,7 +240,7 @@ static NSInteger count = 0;
 -(void)setupPlayerUI{
     if (_backgroundView) return;
     // 背景
-    _backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"MAPreviewController.bundle/blur"]];
+    _backgroundView = [[UIImageView alloc] initWithImage:[MAPreviewController imageNamed:@"blur"]];
     [self addSubview:_backgroundView];
     // loading
     _activityIndeView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
@@ -496,7 +497,7 @@ static NSInteger padding = 8;
         
         _largeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _largeButton.contentMode = UIViewContentModeScaleToFill;
-        [_largeButton setImage:[UIImage imageNamed:@"MAPreviewController.bundle/landscape"] forState:UIControlStateNormal];
+        [_largeButton setImage:[MAPreviewController imageNamed:@"landscape"] forState:UIControlStateNormal];
         [_largeButton addTarget:self action:@selector(hanleLargeBtn:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_largeButton];
         
@@ -614,7 +615,7 @@ static NSInteger padding = 8;
 
 - (void)setIsPlay:(BOOL)isPlay{
     _isPlay = isPlay;
-    [self.imageBtn setImage:[UIImage imageNamed:isPlay ? @"MAPreviewController.bundle/pause" : @"MAPreviewController.bundle/play"] forState:UIControlStateNormal];
+    [self.imageBtn setImage:[MAPreviewController imageNamed:isPlay ? @"pause" : @"play"] forState:UIControlStateNormal];
 }
 
 -(void)handleImageTapAction:(UIButton *)button{
@@ -641,8 +642,8 @@ static NSInteger padding = 8;
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        [self setThumbImage:[UIImage imageNamed:@"MAPreviewController.bundle/knob"] forState:UIControlStateHighlighted];
-        [self setThumbImage:[UIImage imageNamed:@"MAPreviewController.bundle/knob_pre"] forState:UIControlStateNormal];
+        [self setThumbImage:[MAPreviewController imageNamed:@"knob"] forState:UIControlStateHighlighted];
+        [self setThumbImage:[MAPreviewController imageNamed:@"knob_pre"] forState:UIControlStateNormal];
     }
     return self;
 }

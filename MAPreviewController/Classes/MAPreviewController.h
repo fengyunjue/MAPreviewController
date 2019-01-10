@@ -16,9 +16,6 @@
 + (void)presentForViewController:(UIViewController *)vc models:(NSArray <MAPreviewModel *>*)models selectIndex:(NSInteger)selectIndex;
 + (void)setPlaceholderErrorImage:(UIImage *)image;
 
-// 视频是否支持全屏按钮
-+ (void)setLargeType:(kLargeType)largeType;
-
 + (UIImage *)imageNamed:(NSString *)name;
 
 @end

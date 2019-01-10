@@ -67,7 +67,6 @@
 //    }];
 
     MAPlayerController *vc = [[MAPlayerController alloc]init];
-    vc.largeType = kLargeTypeView;
     vc.model = [[MAPreviewModel alloc] initWithValue:[NSURL URLWithString:@"https://kchat-files-oss.kf5.com/5bfe5062c41a73374c150c8093e8a5b1caff9432090198098.mp4"] placeholder:self.imageView.image isVideo:YES];
     [self presentViewController:vc animated:YES completion:nil];
 }

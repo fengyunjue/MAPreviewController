@@ -10,7 +10,6 @@
 #import "UIImageView+WebCache.h"
 #import "MAAutoLayout.h"
 #import "SVProgressHUD.h"
-#import "MAPlayerView.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "MAPlayerController.h"
 
@@ -27,8 +26,6 @@ static NSString *cellVideoID = @"MAPreviewVideoCell";
 @property (nonatomic, strong) NSURL *localURL;
 
 @end
-
-static kLargeType LargeType = kLargeTypeHidden;
 
 @interface MACollectionView : UICollectionView
 @end
@@ -67,9 +64,7 @@ static kLargeType LargeType = kLargeTypeHidden;
 @end
 
 @implementation MAPreviewController
-+ (void)setLargeType:(kLargeType)largeType{
-    LargeType = largeType;
-}
+
 - (instancetype)initWithModels:(NSArray<MAPreviewModel *> *)models selectIndex:(NSInteger)selectIndex{
     self = [super init];
     if (self) {
@@ -268,11 +263,10 @@ static kLargeType LargeType = kLargeTypeHidden;
         self.backgroundColor = [UIColor blackColor];
         
         MAPlayerController *playerController = [[MAPlayerController alloc] init];
-        playerController.largeType = LargeType;
         [self.contentView addSubview:playerController.view];
         
         __weak typeof(self) weakSelf = self;
-        playerController.singleTapGestureBlock = ^{
+        playerController.closeGestureBlock = ^{
             if (weakSelf.singleTapGestureBlock) {
                 weakSelf.singleTapGestureBlock();
             }

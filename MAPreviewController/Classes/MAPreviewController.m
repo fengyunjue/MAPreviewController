@@ -144,7 +144,11 @@ static NSString *cellVideoID = @"MAPreviewVideoCell";
 
 - (void)setCurrentIndex:(NSInteger)currentIndex{
     _currentIndex = currentIndex;
-    self.numberLabel.text = [NSString stringWithFormat:@"%ld/%lu", currentIndex+1,(unsigned long)self.models.count];
+    if (self.models.count == 1) {
+        self.numberLabel.text = nil;
+    }else{
+        self.numberLabel.text = [NSString stringWithFormat:@"%ld/%lu", (long)currentIndex+1,(unsigned long)self.models.count];
+    }
 }
 - (CGSize)collectionView:(nonnull UICollectionView *)collectionView layout:(nonnull UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     return CGSizeMake(collectionView.bounds.size.width, collectionView.bounds.size.height);

@@ -40,6 +40,8 @@ typedef NS_ENUM(NSInteger,MAPlayerStatus){
 
 - (void)assetWithModel:(MAPreviewModel *)model;
 
++ (void)setSupportLandscape:(BOOL)supportLandscape;
+
 @end
 
 

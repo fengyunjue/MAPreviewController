@@ -52,19 +52,20 @@
         return [super shouldAutorotate];
     }
 }
-
+static BOOL _supportLandscape;
++ (void)setSupportLandscape:(BOOL)supportLandscape{
+    NSArray *interfaceOrientations = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"UISupportedInterfaceOrientations"];
+    if ([interfaceOrientations isKindOfClass:[NSArray class]] && ([interfaceOrientations containsObject:@"UIInterfaceOrientationLandscapeLeft"] || [interfaceOrientations containsObject:@"UIInterfaceOrientationLandscapeRight"])) {
+        _supportLandscape = supportLandscape;
+    }
+}
 + (BOOL)isSupportLandscape {
-    static BOOL supportLandscape;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         NSArray *interfaceOrientations = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"UISupportedInterfaceOrientations"];
-        if ([interfaceOrientations isKindOfClass:[NSArray class]] && ([interfaceOrientations containsObject:@"UIInterfaceOrientationLandscapeLeft"] || [interfaceOrientations containsObject:@"UIInterfaceOrientationLandscapeRight"])) {
-            supportLandscape = YES;
-        }else{
-            supportLandscape = NO;
-        }
+        _supportLandscape = [interfaceOrientations isKindOfClass:[NSArray class]] && ([interfaceOrientations containsObject:@"UIInterfaceOrientationLandscapeLeft"] || [interfaceOrientations containsObject:@"UIInterfaceOrientationLandscapeRight"]);
     });
-    return supportLandscape;
+    return _supportLandscape;
 }
 
 - (void)deviceOrientationDidChange{

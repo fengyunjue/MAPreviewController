@@ -598,7 +598,6 @@ static NSString *cellVideoID = @"MAPreviewVideoCell";
     NSTimeInterval duration = [self transitionDuration:transitionContext];
     [UIView animateWithDuration:duration animations:^{
         fromVC.view.frame = finalFrame;
-        toVC.view.frame = initFrame;
     } completion:^(BOOL finished) {
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
     }];

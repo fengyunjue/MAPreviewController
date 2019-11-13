@@ -156,7 +156,7 @@
 
 @interface MAAutoLayout()
 
-@property (nonatomic,strong) NSMutableArray<MAAutoLayoutMaker *> *constraints;
+@property (nonatomic,strong) NSMutableArray<id> *constraints;
 @property (nonatomic,weak) id view;
 
 @end
@@ -239,8 +239,6 @@
 
 @end
 
-
-
 @implementation UIView (MAAutoLayout)
 
 static char kInstalledMAAutoLayoutKey;
@@ -262,6 +260,10 @@ static char kInstalledMAAutoLayoutKey;
 - (void)ma_remakeConstraints:(void (^)(MAAutoLayout * _Nonnull))make{
     [self.ma_layout deactivate];
     [self ma_makeConstraints:make];
+}
+
+- (void)ma_removeConstraints{
+    [self.ma_layout deactivate];
 }
 
 - (MAViewAttribute *)ma_left{
@@ -335,6 +337,16 @@ static char kInstalledMAAutoLayoutKey;
     return safeInsets;
 }
 
++ (UIEdgeInsets)ma_rootSafeAreaInsets{
+    UIEdgeInsets safeInsets = UIEdgeInsetsZero;
+#ifdef __IPHONE_11_0
+    if (@available(iOS 11.0, *)) {
+        safeInsets = [[UIApplication sharedApplication] delegate].window.safeAreaInsets;
+    }
+#endif
+    return safeInsets;
+}
+
 #pragma mark - private
 - (MAViewAttribute *)ma_viewAttribute:(NSLayoutAttribute)layoutAttribute {
     return [[MAViewAttribute alloc] initWithItem:self layoutAttribute:layoutAttribute];
@@ -402,4 +414,210 @@ static char kInstalledMAAutoLayoutKey;
     return [[MAViewAttribute alloc] initWithItem:item layoutAttribute:attribute];
 }
 
+@end
+
+
+
+@interface MAAutoLayoutMakers()
+
+@property (nullable, nonatomic,weak) id firstItem;
+@property (nonatomic, strong) NSArray *attributes;
+@property (nullable, nonatomic,weak) id secondItem;
+@property (nonatomic, assign) NSLayoutRelation relation;
+@property (nonatomic, assign) UIEdgeInsets  insetsValue;
+@property (nonatomic, assign) UILayoutPriority priorityValue;
+
+@property (nonatomic,strong) NSArray <NSLayoutConstraint *>*layoutConstraints;
+@property (nonatomic,strong) NSArray <MAAutoLayoutMaker *>*layoutMarkers;
+
+
+@end
+
+@implementation MAAutoLayoutMakers
+
+- (instancetype)initWithFirstItem:(id)firstItem attributes:(NSArray *)attributes {
+    self = [super init];
+    if (!self) return nil;
+    
+    self.firstItem = firstItem;
+    self.attributes = attributes;
+    self.secondItem = nil;
+    self.insetsValue = UIEdgeInsetsZero;
+    self.priorityValue = UILayoutPriorityRequired;
+    
+    return self;
+}
+
+- (MAAutoLayoutMakers *(^)(CGFloat))offset{
+    return ^id(CGFloat offset){
+        self.insetsValue = UIEdgeInsetsMake(offset, offset, offset, offset);
+        return self;
+    };
+}
+
+- (MAAutoLayoutMakers * _Nonnull (^)(UIEdgeInsets))insets{
+    return ^id(UIEdgeInsets insets){
+        self.insetsValue = insets;
+        return self;
+    };
+}
+
+- (MAAutoLayoutMakers * _Nonnull (^)(id _Nonnull))equalTo{
+    return ^id(id attribute) {
+        return self.equalToWithRelation(attribute, NSLayoutRelationEqual);
+    };
+}
+- (MAAutoLayoutMakers * _Nonnull (^)(id _Nonnull))greaterThanOrEqualTo{
+    return ^id(id attribute) {
+        return self.equalToWithRelation(attribute, NSLayoutRelationGreaterThanOrEqual);
+    };
+}
+
+- (MAAutoLayoutMakers * _Nonnull (^)(id _Nonnull))lessThanOrEqualTo{
+    return ^id(id attribute) {
+        return self.equalToWithRelation(attribute, NSLayoutRelationLessThanOrEqual);
+    };
+}
+
+- (MAAutoLayoutMakers * _Nonnull (^)(CGFloat))ma_equal{
+    return ^id(CGFloat constant) {
+        return self.equalToWithRelation(@(constant), NSLayoutRelationEqual);
+    };
+}
+
+- (MAAutoLayoutMakers * _Nonnull (^)(CGFloat, CGFloat))ma_equalSize{
+    return ^id(CGFloat width, CGFloat height) {
+        return self.equalToWithRelation([NSValue valueWithCGSize:CGSizeMake(width, height)], NSLayoutRelationEqual);
+    };
+}
+
+- (MAAutoLayoutMakers * _Nonnull (^)(CGFloat))ma_greaterThanOrEqual{
+    return ^id(CGFloat constant) {
+        return self.equalToWithRelation(@(constant), NSLayoutRelationGreaterThanOrEqual);
+    };
+}
+
+- (MAAutoLayoutMakers * _Nonnull (^)(CGFloat))ma_lessThanOrEqual{
+    return ^id(CGFloat constant) {
+        return self.equalToWithRelation(@(constant), NSLayoutRelationLessThanOrEqual);
+    };
+}
+
+- (MAAutoLayoutMakers * _Nonnull (^)(UILayoutPriority))priority{
+    return ^(UILayoutPriority priority) {
+        self.priorityValue = priority;
+        return self;
+    };
+}
+
+- (BOOL)isActive{
+    return self.layoutConstraints.count > 0;
+}
+
+- (NSArray<NSLayoutConstraint *> *)active{
+    if (self.layoutConstraints.count > 0) {
+        [self.layoutConstraints makeObjectsPerformSelector:@selector(setActive:) withObject:@(NO)];
+    }
+    if (self.firstItem) {
+        NSMutableArray *constraints = [NSMutableArray arrayWithCapacity:self.attributes.count];
+        for (NSInteger i = 0; i < self.attributes.count; i++) {
+            NSLayoutAttribute attribute = [self.attributes[i] integerValue];
+            CGFloat constant = 0;
+            if (attribute == NSLayoutAttributeTop || attribute == NSLayoutAttributeWidth) {
+                constant = self.insetsValue.top;
+            }else if (attribute == NSLayoutAttributeLeft || attribute == NSLayoutAttributeHeight) {
+                constant = self.insetsValue.left;
+            }else if (attribute == NSLayoutAttributeRight) {
+                constant = self.insetsValue.right;
+            }else if (attribute == NSLayoutAttributeBottom) {
+                constant = self.insetsValue.bottom;
+            }else{
+                constant = self.insetsValue.top;
+            }
+            NSLayoutConstraint *layoutConstraint = [NSLayoutConstraint constraintWithItem:self.firstItem attribute:attribute relatedBy:self.relation toItem:self.secondItem attribute:attribute multiplier:1.0f constant:constant];
+            layoutConstraint.priority = self.priorityValue;
+            layoutConstraint.active = YES;
+            [constraints addObject:layoutConstraint];
+        }
+        self.layoutConstraints = constraints;
+    }
+    return self.layoutConstraints;
+}
+
+- (void)deactivate{
+    for (NSLayoutConstraint *layoutConstraint in self.layoutConstraints) {
+        layoutConstraint.active = NO;
+    }
+    self.layoutConstraints = nil;
+}
+
+#pragma mark private
+- (MAAutoLayoutMakers * (^)(id, NSLayoutRelation))equalToWithRelation {
+    return ^id(id attribute, NSLayoutRelation relation) {
+        if ([attribute isKindOfClass:[UIView class]]) {
+            self.secondItem = attribute;
+        }else if ([attribute isKindOfClass:[NSNumber class]]){
+            self.secondItem = nil;
+            self.insetsValue = UIEdgeInsetsMake(((NSNumber *)attribute).floatValue, ((NSNumber *)attribute).floatValue, 0, 0);
+        }else if ([attribute isKindOfClass:[NSValue class]]) {
+            self.secondItem = nil;
+            CGSize size = [(NSValue *)attribute CGSizeValue];
+            self.insetsValue = UIEdgeInsetsMake(size.width, size.height, 0, 0);
+        }else{
+            NSAssert(attribute, @"格式不正确,必须是UIView或NSNumber");
+        }
+        self.relation = relation;
+        return self;
+    };
+}
+
+@end
+
+@implementation MAAutoLayout (MAConvenience)
+- (MAAutoLayoutMakers *)addConstraintWithLayoutAttributes:(NSArray *)attributes {
+    MAAutoLayoutMakers *maker = [[MAAutoLayoutMakers alloc] initWithFirstItem:self.view attributes:attributes];
+    [self.constraints addObject:maker];
+    return maker;
+}
+-(MAAutoLayoutMakers *)leftRight {
+    return [self addConstraintWithLayoutAttributes:@[@(NSLayoutAttributeLeft),@(NSLayoutAttributeRight)]];
+}
+-(MAAutoLayoutMakers *)topBottom {
+    return [self addConstraintWithLayoutAttributes:@[@(NSLayoutAttributeTop),@(NSLayoutAttributeBottom)]];
+}
+-(MAAutoLayoutMakers *)size {
+    return [self addConstraintWithLayoutAttributes:@[@(NSLayoutAttributeWidth),@(NSLayoutAttributeHeight)]];
+}
+-(MAAutoLayoutMakers *)center {
+    return [self addConstraintWithLayoutAttributes:@[@(NSLayoutAttributeCenterX),@(NSLayoutAttributeCenterY)]];
+}
+- (MAAutoLayoutMakers *)topLeft{
+    return [self addConstraintWithLayoutAttributes:@[@(NSLayoutAttributeTop),@(NSLayoutAttributeLeft)]];
+}
+-(MAAutoLayoutMakers *)topRight {
+    return [self addConstraintWithLayoutAttributes:@[@(NSLayoutAttributeTop),@(NSLayoutAttributeRight)]];
+}
+-(MAAutoLayoutMakers *)bottomLeft {
+    return [self addConstraintWithLayoutAttributes:@[@(NSLayoutAttributeBottom),@(NSLayoutAttributeLeft)]];
+    
+}
+-(MAAutoLayoutMakers *)bottomRight {
+    return [self addConstraintWithLayoutAttributes:@[@(NSLayoutAttributeBottom),@(NSLayoutAttributeRight)]];
+    
+}
+-(MAAutoLayoutMakers *)edge {
+    return [self addConstraintWithLayoutAttributes:@[@(NSLayoutAttributeTop),@(NSLayoutAttributeLeft),@(NSLayoutAttributeRight),@(NSLayoutAttributeBottom)]];
+}
+-(MAAutoLayoutMakers *)topLeftRight {
+    return [self addConstraintWithLayoutAttributes:@[@(NSLayoutAttributeTop),@(NSLayoutAttributeLeft),@(NSLayoutAttributeRight)]];
+}
+-(MAAutoLayoutMakers *)bottomLeftRight {
+    return [self addConstraintWithLayoutAttributes:@[@(NSLayoutAttributeLeft),@(NSLayoutAttributeBottom),@(NSLayoutAttributeRight)]];
+}
+-(MAAutoLayoutMakers *)leftTopBottom {
+    return [self addConstraintWithLayoutAttributes:@[@(NSLayoutAttributeLeft),@(NSLayoutAttributeTop),@(NSLayoutAttributeBottom)]];
+}
+-(MAAutoLayoutMakers *)rightTopBottom {
+    return [self addConstraintWithLayoutAttributes:@[@(NSLayoutAttributeRight),@(NSLayoutAttributeTop),@(NSLayoutAttributeBottom)]];
+}
 @end

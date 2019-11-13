@@ -89,8 +89,10 @@
 
 - (void)ma_makeConstraints:(void(^_Nonnull)(MAAutoLayout * _Nonnull make))make;
 - (void)ma_remakeConstraints:(void(^_Nonnull)(MAAutoLayout * _Nonnull make))make;
+- (void)ma_removeConstraints;
 
 - (UIEdgeInsets)ma_safeAreaInsets;
++ (UIEdgeInsets)ma_rootSafeAreaInsets;
 
 @end
 
@@ -105,5 +107,49 @@
 
 @property (nonatomic, strong, readonly) MAViewAttribute * _Nonnull ma_safeAreaTopLayoutGuide;
 @property (nonatomic, strong, readonly) MAViewAttribute * _Nonnull ma_safeAreaBottomLayoutGuide;
+
+@end
+
+
+@interface MAAutoLayoutMakers : NSObject
+
+@property (nullable, nonatomic,strong, readonly) NSArray <MAAutoLayoutMaker *>*layoutMarkers;
+@property (nullable, nonatomic,strong, readonly) NSArray <NSLayoutConstraint *>*layoutConstraints;
+- (nonnull instancetype)initWithFirstItem:(nonnull id)firstItem attributes:(NSArray *_Nonnull)attributes;
+// 偏移量
+- (MAAutoLayoutMakers * _Nonnull (^_Nonnull)(CGFloat offset))offset;
+- (MAAutoLayoutMakers * _Nonnull (^_Nonnull)(UIEdgeInsets insets))insets;
+
+// 关系
+- (MAAutoLayoutMakers * _Nonnull (^_Nonnull)(id _Nonnull attr))equalTo;
+- (MAAutoLayoutMakers * _Nonnull (^_Nonnull)(id _Nonnull attr))greaterThanOrEqualTo;
+- (MAAutoLayoutMakers * _Nonnull (^_Nonnull)(id _Nonnull attr))lessThanOrEqualTo;
+
+// 赋值
+- (MAAutoLayoutMakers * _Nonnull (^_Nonnull)(CGFloat constant))ma_equal;
+- (MAAutoLayoutMakers * _Nonnull (^_Nonnull)(CGFloat width, CGFloat height))ma_equalSize;
+- (MAAutoLayoutMakers * _Nonnull (^_Nonnull)(CGFloat constant))ma_greaterThanOrEqual;
+- (MAAutoLayoutMakers * _Nonnull (^_Nonnull)(CGFloat constant))ma_lessThanOrEqual;
+
+- (BOOL)isActive;
+
+- (nonnull NSArray <NSLayoutConstraint *>*)active;
+- (void)deactivate;
+@end
+@interface MAAutoLayout (MAConvenience)
+
+@property (nonatomic, strong, readonly) MAAutoLayoutMakers * _Nonnull leftRight;
+@property (nonatomic, strong, readonly) MAAutoLayoutMakers * _Nonnull topBottom;
+@property (nonatomic, strong, readonly) MAAutoLayoutMakers * _Nonnull size;
+@property (nonatomic, strong, readonly) MAAutoLayoutMakers * _Nonnull center;
+@property (nonatomic, strong, readonly) MAAutoLayoutMakers * _Nonnull topLeft;
+@property (nonatomic, strong, readonly) MAAutoLayoutMakers * _Nonnull topRight;
+@property (nonatomic, strong, readonly) MAAutoLayoutMakers * _Nonnull bottomLeft;
+@property (nonatomic, strong, readonly) MAAutoLayoutMakers * _Nonnull bottomRight;
+@property (nonatomic, strong, readonly) MAAutoLayoutMakers * _Nonnull edge;
+@property (nonatomic, strong, readonly) MAAutoLayoutMakers * _Nonnull topLeftRight;
+@property (nonatomic, strong, readonly) MAAutoLayoutMakers * _Nonnull bottomLeftRight;
+@property (nonatomic, strong, readonly) MAAutoLayoutMakers * _Nonnull leftTopBottom;
+@property (nonatomic, strong, readonly) MAAutoLayoutMakers * _Nonnull rightTopBottom;
 
 @end

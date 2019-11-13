@@ -571,35 +571,25 @@ static NSInteger count = 0;
     [self addSubview:_controlView];
     
     [self.backgroundView ma_makeConstraints:^(MAAutoLayout * _Nonnull make) {
-        make.left.equalTo(self);
-        make.right.equalTo(self);
-        make.top.equalTo(self);
-        make.bottom.equalTo(self);
+        make.edge.equalTo(self);
     }];
     [self.titleLabel ma_makeConstraints:^(MAAutoLayout *make) {
-        make.left.equalTo(self);
-        make.right.equalTo(self);
+        make.leftRight.equalTo(self);
         make.top.equalTo(self).offset(12);
         make.width.equalTo(self);
     }];
     [self.pauseOrPlayView ma_makeConstraints:^(MAAutoLayout *make) {
-        make.left.equalTo(self);
-        make.right.equalTo(self);
-        make.top.equalTo(self);
-        make.bottom.equalTo(self);
+        make.edge.equalTo(self);
     }];
     [self.controlView ma_makeConstraints:^(MAAutoLayout *make) {
-        make.left.equalTo(self);
-        make.right.equalTo(self);
-        make.bottom.equalTo(self.ma_safeAreaLayoutGuideBottom);
+        make.leftRight.equalTo(self);
+        make.bottom.equalTo(self).offset(-[UIView ma_rootSafeAreaInsets].bottom);
         make.height.ma_equal(44);
     }];
     //添加加载视图
     [self.activityIndeView ma_makeConstraints:^(MAAutoLayout *make) {
-        make.width.ma_equal(80);
-        make.height.ma_equal(80);
-        make.centerX.equalTo(self);
-        make.centerY.equalTo(self);
+        make.size.ma_equal(80);
+        make.center.equalTo(self);
     }];
     
     [self layoutIfNeeded];
@@ -611,7 +601,7 @@ static NSInteger count = 0;
         UIEdgeInsets insets = [UIApplication sharedApplication].keyWindow.ma_safeAreaInsets;
         make.left.equalTo(self).offset(insets.left);
         make.right.equalTo(self).offset(-insets.right);
-        make.bottom.equalTo(self.ma_safeAreaLayoutGuideBottom);
+        make.bottom.equalTo(self).offset(-[UIView ma_rootSafeAreaInsets].bottom);
         make.height.ma_equal(44);
     }];
 }
@@ -690,7 +680,7 @@ static NSInteger count = 0;
         NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDevice instanceMethodSignatureForSelector:selector]];
         [invocation setSelector:selector];
         [invocation setTarget:[UIDevice currentDevice]];
-        int val                  = orientation;
+        UIInterfaceOrientation val = orientation;
         
         [invocation setArgument:&val atIndex:2];
         [invocation invoke];

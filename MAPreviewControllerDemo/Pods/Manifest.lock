@@ -1,19 +1,19 @@
 PODS:
-  - MAAutoLayout (1.1)
-  - MAPreviewController (0.2.1):
+  - MAAutoLayout (1.6.4)
+  - MAPreviewController (0.3.2):
     - MAAutoLayout
     - SDWebImage
     - SVProgressHUD
-  - SDWebImage (4.4.3):
-    - SDWebImage/Core (= 4.4.3)
-  - SDWebImage/Core (4.4.3)
+  - SDWebImage (5.3.1):
+    - SDWebImage/Core (= 5.3.1)
+  - SDWebImage/Core (5.3.1)
   - SVProgressHUD (2.2.5)
 
 DEPENDENCIES:
   - MAPreviewController (from `../`)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - MAAutoLayout
     - SDWebImage
     - SVProgressHUD
@@ -23,11 +23,11 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  MAAutoLayout: 64c174132f5c8e83b95b6dd38cd081c1af7af8df
-  MAPreviewController: 8bd974b88cdddde61af66eb0bc0a34138c64d93e
-  SDWebImage: c5594f1a19c48d526d321e548902b56b479cd508
+  MAAutoLayout: 75d9304de05ab8c65f92bed4585f00d608c81d1f
+  MAPreviewController: bd1590e6aa6936b96f9f33562e82b83e92bab14b
+  SDWebImage: 7137d57385fb632129838c1e6ab9528a22c666cc
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
 PODFILE CHECKSUM: 34e7eb62047233e82d0bec7009af616e7e018e95
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.8.4

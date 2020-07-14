@@ -59,7 +59,7 @@
 @end
 
 #pragma mark 转场动画
-@interface SwipeUpInteractiveTransition : UIPercentDrivenInteractiveTransition<UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate>
+@interface MASwipeUpInteractiveTransition : UIPercentDrivenInteractiveTransition<UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate>
 
 - (instancetype)initWithVC:(UIViewController *)vc;
 @property (nonatomic, assign) BOOL shouldComplete;

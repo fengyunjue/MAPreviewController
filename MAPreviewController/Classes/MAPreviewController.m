@@ -59,7 +59,7 @@ static NSString *cellVideoID = @"MAPreviewVideoCell";
 @property (nonatomic, assign) NSInteger selectIndex;
 @property (nonatomic, assign) NSInteger displayIndex;
 
-@property (nonatomic, strong) SwipeUpInteractiveTransition *transitionController;
+@property (nonatomic, strong) MASwipeUpInteractiveTransition *transitionController;
 
 @end
 
@@ -103,7 +103,7 @@ static NSString *cellVideoID = @"MAPreviewVideoCell";
         }
     #endif
     if (useTransitionController) {
-        self.transitionController = [[SwipeUpInteractiveTransition alloc] initWithVC:self];
+        self.transitionController = [[MASwipeUpInteractiveTransition alloc] initWithVC:self];
     }
     if (!placeHolderErrorImage) placeHolderErrorImage = [MAPreviewController imageNamed:@"placeholder_image"];
     
@@ -527,14 +527,14 @@ static NSString *cellVideoID = @"MAPreviewVideoCell";
 @end
 
 #pragma mark 转场动画
-@interface SwipeUpInteractiveTransition ()
+@interface MASwipeUpInteractiveTransition ()
 
 @property (nonatomic, assign) BOOL interacting;
 @property (nonatomic, weak) UIViewController *presentingVC;
 
 @end
 
-@implementation SwipeUpInteractiveTransition
+@implementation MASwipeUpInteractiveTransition
 - (instancetype)initWithVC:(UIViewController *)vc{
     self = [super init];
     if (self) {

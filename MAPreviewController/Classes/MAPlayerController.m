@@ -763,7 +763,7 @@ static NSInteger padding = 8;
         _bufferSlier.userInteractionEnabled = NO;
         [self addSubview:_bufferSlier];
         
-        _slider = [[SZSlider alloc]init];
+        _slider = [[MASlider alloc]init];
         _slider.continuous = YES;
         self.tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap:)];
         [_slider addTarget:self action:@selector(handleSliderPosition:) forControlEvents:UIControlEventValueChanged];
@@ -905,16 +905,16 @@ static NSInteger padding = 8;
 @end
 
 
-#pragma mark - SZSlider
+#pragma mark - MASlider
 
 #define SLIDER_X_BOUND 30
 #define SLIDER_Y_BOUND 40
 
-@interface SZSlider ()
+@interface MASlider ()
 /**lastBounds*/
 @property (nonatomic,assign) CGRect lastBounds;
 @end
-@implementation SZSlider
+@implementation MASlider
 
 
 -(instancetype)initWithFrame:(CGRect)frame{

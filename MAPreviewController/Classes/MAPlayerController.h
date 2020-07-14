@@ -110,7 +110,7 @@ typedef NS_ENUM(NSInteger,MAPlayerStatus){
 
 #pragma mark Other
 
-@interface SZSlider : UISlider
+@interface MASlider : UISlider
 @end
 
 @interface MAPauseOrPlayView : UIView

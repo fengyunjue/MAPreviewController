@@ -407,7 +407,7 @@ static NSString *cellVideoID = @"MAPreviewVideoCell";
         [SVProgressHUD dismiss];
     }else if ([model.value isKindOfClass:[NSURL class]]){
         __weak typeof(self)weakSelf = self;
-        [self.imageView sd_setImageWithURL:model.value placeholderImage:model.placeholder options:kNilOptions progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
+        [self.imageView sd_setImageWithURL:model.value placeholderImage:model.placeholder options:SDWebImageHighPriority | SDWebImageAvoidDecodeImage | SDWebImageScaleDownLargeImages progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 CGFloat progress = receivedSize / (CGFloat)expectedSize;
                 progress = progress > 0.02 ? progress : 0.02;
